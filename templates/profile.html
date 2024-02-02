@@ -1,0 +1,29 @@
+{% extends 'base.html'  %}
+{% block title %}
+Welcome Home!
+    {% endblock %}
+
+
+{% block content %}
+
+<ul>
+    <h2>Your Account</h2>
+    <li>Username: {{user.username}}</li>
+    <li>First Name: {{user.first_name}}</li>
+    <li>Last Name: {{user.last_name}}</li>
+    <li>Email: {{user.email}}</li>
+    <br>
+        <form style="display: inline;" action="/users/{{user.username}}/delete" method="POST"><button type="submit" class="btn btn-danger">Delete Your Account</button></form></ul> 
+<hr>
+<ul>
+    <h2>Your Feedback</h2>
+    <a class="btn btn-info" href="/users/{{user.username}}/feedback/add">Add Feedback</a>
+    {% for feedback in user.user_feedback %}
+    <li class="feedback"><b>{{feedback.title}}</b> <br>
+        {{feedback.content}}
+        <a class="btn btn-warning btn-sm" href="/feedback/{{feedback.id}}/update">Edit</a>
+        <form style="display: inline;" action="/feedback/{{feedback.id}}/delete" method="POST"><button class="btn btn-danger btn-sm" type="submit">Delete</button></form></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
